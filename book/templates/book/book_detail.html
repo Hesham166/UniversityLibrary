@@ -1,0 +1,66 @@
+{% extends 'base.html' %} {% block content %}
+
+<div class="card">
+  <div class="card-header d-flex">
+    <h2>{{ book.title }}</h2>
+    {% if user.is_staff %}
+    <a
+      href="{% url 'book-update' book.pk %}"
+      class="btn btn-primary me-2 ms-auto"
+      >Edit</a
+    >
+    <a href="{% url 'book-delete' book.pk %}" class="btn btn-primary">Delete</a>
+    {% endif %}
+  </div>
+  <div class="card-body">
+    <h5 class="card-title">ISBN:</h5>
+    <p class="card-text">{{ book.isbn }}</p>
+
+    <h5 class="card-title">Author(s):</h5>
+    {% for author in book.author.all %}
+    <p class="card-text">
+      <a href="{% url 'author-books' author.pk %}" class="">{{ author }}</a>
+    </p>
+    {% endfor %}
+
+    <h5 class="card-title">Publisher:</h5>
+    <p class="card-text">
+      <a href="{% url 'publisher-books' book.publisher.pk %}"
+        >{{ book.publisher }}</a
+      >
+    </p>
+
+    <h5 class="card-title">Category:</h5>
+    {% for category in book.category.all %}
+    <p class="card-text">
+      <a href="{% url 'category-books' category.pk %}">{{ category.name }}</a>
+    </p>
+    {% endfor %}
+
+    <h5 class="card-title">Publication Date:</h5>
+    <p class="card-text">{{ book.publish_date }}</p>
+
+    <h5 class="card-title">Edition:</h5>
+    <p class="card-text">{{ book.edition }}</p>
+
+    <h5 class="card-title">Description:</h5>
+    <p class="card-text">{{ book.description }}</p>
+  </div>
+  {% if not user.is_staff %}
+  <div class="card-footer d-flex justify-content-center">
+    {% if not user_borrow %}
+    <form method="post" action="{% url 'book-borrow' book.pk %}" class="w-100">
+      {% csrf_token %}
+      <input type="submit" value="Borrow" class="btn btn-primary w-100">
+    </form>
+    {% else %}
+    <form method="post" action="{% url 'book-return' book.pk %}" class="w-100">
+      {% csrf_token %}
+      <input type="submit" value="Return" class="btn btn-primary w-100">
+    </form>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
+
+{% endblock content %}

@@ -1,0 +1,36 @@
+{% extends 'base.html' %} 
+{% block content %} 
+
+{% if user.is_staff %}
+<div class="d-flex justify-content-center align-item-center flex-wrap mb-3">
+    <a href="{% url 'book-add' %}" class="btn btn-primary m-1 col-md-5">Add Book</a>
+</div>
+{% endif %}
+
+<div class="row row-cols-2 row-cols-md-2 g-4">
+  {% for book in books %}
+  <div class="col">
+    <div class="card h-100" style="width: 100%;">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ book.title }}
+          {% if book.edition %}
+          <br />
+          edition -
+          <small class="card-text">{{ book.edition }}</small>
+          <br />
+          {% endif %}
+        </h5>
+        {% for author in book.author.all %}
+        <a href="{% url 'author-books' author.pk %}" class="">{{ author }}</a>
+        {% if not forloop.last %}, {% endif %}
+        <br />
+        {% endfor %}
+      </div>
+      <a href="{% url 'book-detail' book.pk %}" class="btn btn-primary">Show Details</a>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

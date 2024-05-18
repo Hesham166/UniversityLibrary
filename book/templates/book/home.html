@@ -1,0 +1,19 @@
+{%extends 'base.html'%} {%load static %} {%block content%}
+<div class="row d-flex justify-content-between align-item-center">
+  <div class="col-md-6 d-flex align-item-center w-50">
+    <div class="feature-content">
+      <h1>Library</h1>
+      <p>You can borrow and borrow any book in the library.</p>
+      <a class="btn btn-primary cta" href="{% url 'book-list' %}">Browse</a>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <img
+      src="{%static 'img/Library-pana.svg'%}"
+      alt=""
+      class="feature-image img-fluid"
+      style="height: 800px; width: 100%"
+    />
+  </div>
+</div>
+{%endblock content%}

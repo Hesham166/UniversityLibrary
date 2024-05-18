@@ -1,0 +1,17 @@
+{%extends 'base.html'%}
+
+{%block content%}
+<div class="center">
+	<form method="post" class="card">
+		{% csrf_token %}
+		<h2>Delete category</h2>
+		<p>Deleting {{category}} will delete all the books related to it.</p>
+		<p>Are you sure?</p>
+		<p class="form-buttons">
+			<input type="submit" class="btn btn-primary" value="Delete">
+			<a href="{% url 'book-list'%}" class="btn btn-outline">Cancel</a>
+		</p>
+	</form>
+</div>
+
+{%endblock content%}

@@ -1,0 +1,43 @@
+{% extends 'base.html' %} {% block content %} {% if user.is_staff %}
+<div class="d-flex justify-content-center align-item-center flex-wrap mb-3">
+  <a href="{% url 'publisher-add' %}" class="btn btn-primary m-1 col-md-5"
+    >Add Publisher</a
+  >
+</div>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+  {% for publisher in publishers %}
+  <div class="col">
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">
+          {{ publisher }}
+          <a
+            href="{% url 'publisher-update' publisher.pk %}"
+            style="font-size: 0.8rem; margin-left: 0.3rem; color: #0d6efd"
+          >
+            {% if user.is_staff %}
+            <i class="bi bi-pencil"></i>
+            {% endif %}
+          </a>
+        </h5>
+        <a
+          href="{% url 'publisher-books' publisher.pk %}"
+          class="btn btn-primary"
+          >Show Books</a
+        >
+        {% if user.is_staff %}
+        <a
+          href="{% url 'publisher-delete' publisher.pk %}"
+          class="btn btn-danger"
+          >Delete</a
+        >
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock content %}

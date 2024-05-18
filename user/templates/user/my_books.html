@@ -1,0 +1,46 @@
+{% extends 'base.html' %} {% block content %}
+<div class="center">
+  <!-- My Borrowed Books -->
+  <h2>My Borrowed Books</h2>
+  <table class="table table-hover" style="margin-bottom: 6rem">
+    <thead>
+      <tr>
+        <th scope="col">Book</th>
+        <th scope="col">Borrow Date</th>
+        <th scope="col">Return Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for borrow in borrow_list %}
+      <tr>
+        <td><a href="{% url 'book-detail' borrow.book.pk %}">{{ borrow.book }}</a></td>
+        <td>{{ borrow.borrow_date }}</td>
+        <td>{{ borrow.return_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+
+  <!-- My Borrowed History -->
+  <h2>My Borrowing History</h2>
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th scope="col">Book</th>
+        <th scope="col">Borrow Date</th>
+        <th scope="col">Return Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for record in borrow_record %}
+      <tr>
+        <td><a href="{% url 'book-detail' record.book.pk %}">{{ record.book }}</a></td>
+        <td>{{ record.borrow_date }}</td>
+        <td>{{ record.return_date }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
